@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15.0
+    container_name: back-office-db
+    ports:
+      - "5432:5432"
+    environment:
+        - POSTGRES_USER=root
+        - POSTGRES_PASSWORD=root
+    volumes:
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
