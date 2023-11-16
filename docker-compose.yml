@@ -7,7 +7,7 @@ services:
     ports:
       - "5432:5432"
     environment:
-        - POSTGRES_DB=back-office
+        - POSTGRES_DB=back_office
         - POSTGRES_USER=root
         - POSTGRES_PASSWORD=root
     volumes:
