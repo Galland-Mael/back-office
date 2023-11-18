@@ -1,0 +1,1 @@
+INSERT INTO product VALUES (1,'MIXBOOK',1),(4,'DASH',2);
