@@ -1,19 +1,23 @@
-package project.backoffice.Entity;
+package project.backoffice.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Library {
+public class Shared {
     @Id
     @GeneratedValue
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private Date date;
+    @ManyToOne
+    @JoinColumn(name="user_id")
     private User user;
+    private String presets;
 }
