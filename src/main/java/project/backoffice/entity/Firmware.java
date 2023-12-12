@@ -1,6 +1,5 @@
 package project.backoffice.entity;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,8 +17,9 @@ public class Firmware {
     private Long id;
     private Date date;
     private String version;
-    private String dataFilePath;
-    @ManyToOne
-    @JoinColumn(name="product_id")
+    @Column(name="file_path")
+    private String filePath;
+    @OneToOne(mappedBy = "firmware")
     private Product product;
+
 }

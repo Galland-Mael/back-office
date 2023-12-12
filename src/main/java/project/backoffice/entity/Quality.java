@@ -14,11 +14,12 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Quality {
+public class Quality
+{
     @Id
     @GeneratedValue
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "quality")
+    @OneToMany(mappedBy="quality")
     private List<User> users;
 }

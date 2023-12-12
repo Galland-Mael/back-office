@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Data
 @NoArgsConstructor
@@ -16,6 +14,7 @@ public class Product {
     @GeneratedValue
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "product")
-    private List<Firmware> firmwares;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "firmware_id", referencedColumnName = "id")
+    private Firmware firmware;
 }

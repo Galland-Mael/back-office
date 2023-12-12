@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,25 +18,25 @@ public class User {
     @Id
     @GeneratedValue
     private Long id;
-    @Column(name = "first_name")
+    @Column(name="first_name")
     private String firstName;
-    @Column(name = "last_name")
+    @Column(name="last_name")
     private String lastName;
     private String email;
-    @Column(name = "facebook_id")
-    private String facebookId;
     private String password;
+    private String facebook_id;
     private String phone;
+    private String token;
+    private int admin;
+    @Column(name="library_timestamp")
+    private Date libraryTimestamp;
+    private Date timestamp;
+    private Date created;
     @ManyToOne
     @JoinColumn(name="quality_id")
     private Quality quality;
-    private String token;
-    private int admin;
-    @Column(name = "library_timestamp")
-    private Timestamp libraryTimestamp;
-    private Timestamp timestamp;
-    @Column(name = "is_active")
-    private boolean isActive;
-    @OneToMany(mappedBy = "user")
-    private List<Shared> sharedList;
+    @OneToMany(mappedBy="user")
+    private List<Library> libraries;
+    @OneToMany(mappedBy="user")
+    private List<Shared> shareds;
 }

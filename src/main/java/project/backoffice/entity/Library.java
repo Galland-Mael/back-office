@@ -13,7 +13,8 @@ public class Library {
     @Id
     @GeneratedValue
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name="user_id")
     private User user;
+    private String Json;
 }
