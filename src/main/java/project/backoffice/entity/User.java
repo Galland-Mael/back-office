@@ -31,12 +31,11 @@ public class User {
     @Column(name="library_timestamp")
     private Date libraryTimestamp;
     private Date timestamp;
-    private Date created;
     @ManyToOne
     @JoinColumn(name="quality_id")
     private Quality quality;
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Library> libraries;
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Shared> shareds;
 }
