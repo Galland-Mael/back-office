@@ -1,4 +1,4 @@
-package project.backoffice.entity;
+package project.backoffice.Entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

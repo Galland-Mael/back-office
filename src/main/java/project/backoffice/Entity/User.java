@@ -1,4 +1,4 @@
-package project.backoffice.entity;
+package project.backoffice.Entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -37,4 +37,5 @@ public class User {
     private List<Library> libraries;
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Shared> shareds;
+    private Role role;
 }
