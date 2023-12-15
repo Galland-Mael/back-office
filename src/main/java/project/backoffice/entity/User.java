@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class User {
     @Column(name="library_timestamp")
     private Date libraryTimestamp;
     private Date timestamp;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="quality_id")
     private Quality quality;
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
