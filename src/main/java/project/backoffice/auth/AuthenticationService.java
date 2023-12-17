@@ -16,13 +16,12 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        System.out.println("prepare auth : " + request.getEmail() + " " + request.getPassword());
-            System.out.println("Credential : " + authenticationManager.authenticate(
+            authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             request.getEmail(),
                             request.getPassword()
                     )
-            ).getCredentials().toString());
+            );
             var user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
             var jwtToken = jwtService.generateToken(user);
             return AuthenticationResponse.builder()
