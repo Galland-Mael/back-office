@@ -1,4 +1,4 @@
-package project.backoffice.Entity;
+package project.backoffice.entity;
 
 public enum Role {
     ADMIN,

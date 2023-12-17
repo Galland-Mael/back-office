@@ -1,4 +1,4 @@
-package project.backoffice.Entity;
+package project.backoffice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -6,17 +6,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Library {
+public class Quality
+{
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
+    private String name;
+    @OneToMany(mappedBy="quality", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private User user;
-    private String Json;
+    private List<User> users;
 }
