@@ -1,17 +1,13 @@
 package project.backoffice.Entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "users")
 public class User {
     @Id
@@ -26,16 +22,17 @@ public class User {
     private String facebook_id;
     private String phone;
     private String token;
-    private int admin;
     @Column(name="library_timestamp")
     private Date libraryTimestamp;
     private Date timestamp;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="quality_id")
     private Quality quality;
-    @OneToMany(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Library> libraries;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "library_id", referencedColumnName = "id")
+    private Library library;
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Shared> shareds;
+    @Enumerated(EnumType.STRING)
     private Role role;
 }

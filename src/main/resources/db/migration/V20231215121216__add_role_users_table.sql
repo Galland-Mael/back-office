@@ -1,11 +1,11 @@
 ALTER table users add column role varchar(255);
 
 UPDATE users
-SET role = 'admin'
+SET role = 'ADMIN'
 WHERE admin = 1;
 
 UPDATE users
-SET role = 'user'
+SET role = 'USER'
 WHERE admin = 0;
 
 ALTER TABLE users
