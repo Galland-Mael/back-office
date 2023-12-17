@@ -7,8 +7,5 @@ import project.backoffice.Entity.User;
 
 @Mapper(componentModel = "spring", uses = {LibraryMapper.class})
 public interface UserMapper {
-
-    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
-
     UserDTO toDTO(User user);
 }

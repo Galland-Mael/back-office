@@ -15,19 +15,20 @@ import project.backoffice.Service.LibraryService;
 @RequestMapping("/library")
 public class LibraryController {
     private LibraryService libraryService;
+    private LibraryMapper LibraryMapper;
 
     @GetMapping("/{id}")
     public ResponseEntity<LibraryDTO> getLibraryById(@PathVariable Long id) {
-        return ResponseEntity.ok(LibraryMapper.INSTANCE.toDTO(libraryService.getLibraryById(id)));
+        return ResponseEntity.ok(LibraryMapper.toDTO(libraryService.getLibraryById(id)));
     }
 
     @PostMapping
     public ResponseEntity<LibraryDTO> createLibrary(@RequestBody LibraryRequest libraryRequest) {
-        return new ResponseEntity<>(LibraryMapper.INSTANCE.toDTO(libraryService.createLibrary(libraryRequest)), HttpStatus.CREATED);
+        return new ResponseEntity<>(LibraryMapper.toDTO(libraryService.createLibrary(libraryRequest)), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<LibraryDTO> updateLibrary(@PathVariable Long id, @RequestBody LibraryRequest libraryRequest) {
-        return ResponseEntity.ok(LibraryMapper.INSTANCE.toDTO(libraryService.updateLibrary(id, libraryRequest)));
+        return ResponseEntity.ok(LibraryMapper.toDTO(libraryService.updateLibrary(id, libraryRequest)));
     }
 }
