@@ -1,4 +1,4 @@
-package project.backoffice.Exception;
+package project.backoffice.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

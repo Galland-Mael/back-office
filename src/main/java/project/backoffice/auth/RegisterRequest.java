@@ -1,10 +1,12 @@
 package project.backoffice.auth;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import project.backoffice.entity.Role;
+
+import java.util.Date;
 
 @Data
 @Builder
@@ -13,5 +15,8 @@ import lombok.NoArgsConstructor;
 public class RegisterRequest {
     private String email;
     private String password;
-    private String pseudo;
+    private String firstName;
+    private String lastName;
+    private String facebook_id;
+    private String phone;
 }

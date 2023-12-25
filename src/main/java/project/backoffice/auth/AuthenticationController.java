@@ -1,23 +1,14 @@
 package project.backoffice.auth;
 
-import jakarta.annotation.security.PermitAll;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.token.Sha512DigestUtils;
-import org.springframework.security.crypto.codec.Utf8;
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
-import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.bind.annotation.*;
+import project.backoffice.exception.ApiException;
+import project.backoffice.exception.ApiExceptionHandler;
+import project.backoffice.exception.MessageExceptionEnum;
 
 @RestController
 @RequestMapping("/auth")
@@ -25,10 +16,28 @@ import java.util.Map;
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
+    private final ApiExceptionHandler apiExceptionHandler;
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request){
+        return ResponseEntity.ok(authenticationService.register(request));
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest request) {
-        return ResponseEntity.ok(authenticationService.authenticate(request));
+        try {
+            try {
+                AuthenticationResponse response = authenticationService.authenticate(request);
+                return ResponseEntity.ok(response);
+            } catch (BadCredentialsException e) {
+                throw new ApiException(HttpStatus.FORBIDDEN, MessageExceptionEnum.LOGIN_OR_PASSWORD_INCORRECT);
+            } catch (Exception e) {
+                return apiExceptionHandler.handleApiException(e);
+            }
+        } catch (ApiException e) {
+            return apiExceptionHandler.handleApiException(e);
+        }
+
     }
 
 }

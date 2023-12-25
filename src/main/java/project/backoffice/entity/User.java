@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Date;
@@ -31,7 +32,6 @@ public class User implements UserDetails {
     private String facebook_id;
     private String phone;
     private String token;
-    private int admin;
 
     @Column(name="library_timestamp")
     private Date libraryTimestamp;
@@ -43,6 +43,7 @@ public class User implements UserDetails {
     private List<Library> libraries;
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Shared> shareds;
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Column(name = "is_active")
@@ -50,12 +51,17 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override
     public String getUsername() {
         return email;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 
     @Override
@@ -75,6 +81,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return isActive;
     }
 }

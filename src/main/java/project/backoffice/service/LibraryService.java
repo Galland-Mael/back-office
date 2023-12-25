@@ -1,10 +1,10 @@
-package project.backoffice.Service;
+package project.backoffice.service;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import project.backoffice.Repository.LibraryRepository;
-import project.backoffice.Entity.Library;
+import project.backoffice.repository.LibraryRepository;
+import project.backoffice.entity.Library;
 
 @AllArgsConstructor
 @Service
