@@ -26,9 +26,10 @@ public class PresetsStandardService {
         PresetsStandard result = presetsStandardRepository.getPresetStandardByType(type);
 
         String jsonStringFromDatabase = result.getJson();
-        //String cleanedJsonString = jsonStringFromDatabase.replaceAll("\\\\r\\\\n", "");
-        System.out.println(jsonStringFromDatabase);
-        result.setJson(jsonStringFromDatabase);
+//        String cleanedJsonString = jsonStringFromDatabase.replaceAll("\\\\r\\\\n", "");
+//        cleanedJsonString = cleanedJsonString.replaceAll("\\\\", "");
+//        result.setJson(cleanedJsonString);
+        System.out.println(result.getJson());
         return result;
 
     }
