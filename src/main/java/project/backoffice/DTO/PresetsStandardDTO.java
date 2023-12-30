@@ -5,5 +5,5 @@ import lombok.Data;
 public class PresetsStandardDTO {
     private Long id;
     private String type;
-    private String json;
+    private Object json;
 }

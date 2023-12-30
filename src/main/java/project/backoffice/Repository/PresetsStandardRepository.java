@@ -8,7 +8,10 @@ import project.backoffice.Entity.PresetsStandard;
 @Repository
 public interface PresetsStandardRepository extends JpaRepository<PresetsStandard, Long> {
 
-    @Query(value = "SELECT * FROM presets_standard WHERE type = ?1", nativeQuery = true)
+    @Query("""
+
+            SELECT ps FROM PresetsStandard ps WHERE ps.type = :type 
+            """)
     PresetsStandard getPresetStandardByType(String type);
 
 }

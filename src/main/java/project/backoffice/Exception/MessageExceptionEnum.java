@@ -10,7 +10,8 @@ public enum MessageExceptionEnum {
     // AUTHENTICATION
     LOGIN_OR_PASSWORD_INCORRECT("Login or password incorrect"),
     LIBRARY_NOT_FOUND("Library not found for id: %s"),
-    LIBRARY_ALREADY_EXISTS_FOR_USER("Library already exists for user id: %s");
+    LIBRARY_ALREADY_EXISTS_FOR_USER("Library already exists for user id: %s"),
+    JSON_PARSING_ERROR("Error parsing json");
 
     private final String message;
 

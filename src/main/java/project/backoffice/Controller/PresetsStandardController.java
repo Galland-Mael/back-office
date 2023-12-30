@@ -1,5 +1,6 @@
 package project.backoffice.Controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,16 +19,10 @@ import java.util.Map;
 public class PresetsStandardController {
 
     private PresetsStandardService presetsStandardService;
-    private PresetsStandardMapper presetsStandardMapper;
+
 
     @GetMapping
-    public ResponseEntity<?> getPresetsStandardByType(@RequestParam Map<String, String> params) {
-        try {
-            String type = params.get("type");
-            PresetsStandard presetsStandard = presetsStandardService.getPresetStandardByType(type);
-            return new ResponseEntity<>(presetsStandardMapper.toDTO(presetsStandard), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<PresetsStandardDTO> getPresetsStandardByType(@RequestParam String type) throws JsonProcessingException {
+            return ResponseEntity.ok(presetsStandardService.getPresetStandardByType(type));
     }
 }
