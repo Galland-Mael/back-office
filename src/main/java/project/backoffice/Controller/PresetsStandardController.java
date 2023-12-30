@@ -20,10 +20,10 @@ public class PresetsStandardController {
     private PresetsStandardService presetsStandardService;
     private PresetsStandardMapper presetsStandardMapper;
 
-    @PostMapping
-    public ResponseEntity<?> getPresetsStandardByType(@RequestBody Map<String, String> body) {
+    @GetMapping
+    public ResponseEntity<?> getPresetsStandardByType(@RequestParam Map<String, String> params) {
         try {
-            String type = body.get("type");
+            String type = params.get("type");
             PresetsStandard presetsStandard = presetsStandardService.getPresetStandardByType(type);
             return new ResponseEntity<>(presetsStandardMapper.toDTO(presetsStandard), HttpStatus.OK);
         } catch (Exception e) {

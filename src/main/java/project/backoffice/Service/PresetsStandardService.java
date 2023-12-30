@@ -1,15 +1,19 @@
 package project.backoffice.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import project.backoffice.Entity.Library;
 import project.backoffice.Entity.PresetsStandard;
-import project.backoffice.Entity.User;
 import project.backoffice.Exception.ApiException;
 import project.backoffice.Exception.MessageExceptionEnum;
 import project.backoffice.Repository.PresetsStandardRepository;
+import org.apache.commons.lang3.StringEscapeUtils;
+
+import java.util.Arrays;
 
 
 @AllArgsConstructor
@@ -18,8 +22,15 @@ import project.backoffice.Repository.PresetsStandardRepository;
 public class PresetsStandardService {
     private PresetsStandardRepository presetsStandardRepository;
 
-    public PresetsStandard getPresetStandardByType(String type) {
-        return presetsStandardRepository.getPresetStandardByType(type);
+    public PresetsStandard getPresetStandardByType(String type) throws JsonProcessingException {
+        PresetsStandard result = presetsStandardRepository.getPresetStandardByType(type);
+
+        String jsonStringFromDatabase = result.getJson();
+        //String cleanedJsonString = jsonStringFromDatabase.replaceAll("\\\\r\\\\n", "");
+        System.out.println(jsonStringFromDatabase);
+        result.setJson(jsonStringFromDatabase);
+        return result;
+
     }
 
 
