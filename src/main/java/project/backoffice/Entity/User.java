@@ -19,7 +19,8 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-    private String facebook_id;
+    @Column(name="facebook_id")
+    private String facebookId;
     private String phone;
     private String token;
     @Column(name="library_timestamp")
