@@ -1,4 +1,4 @@
-package project.backoffice.auth;
+package project.backoffice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -6,15 +6,16 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import project.backoffice.config.JwtService;
+import project.backoffice.auth.AuthenticationRequest;
+import project.backoffice.auth.AuthenticationResponse;
+import project.backoffice.auth.RegisterRequest;
+import project.backoffice.service.JwtService;
 import project.backoffice.entity.Role;
 import project.backoffice.entity.User;
 import project.backoffice.repository.UserRepository;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
@@ -26,12 +27,16 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(RegisterRequest request) {
         var user= User.builder()
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
-                .facebook_id(request.getFacebook_id())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
                 .phone(request.getPhone())
+                .facebookId(request.getFacebookId())
+                .isActive(true)
+                .libraryTimestamp(Date.from(Instant.now()))
+                .token("")
+                .quality(request.getQuality())
                 .timestamp(Date.from(Instant.now()))
                 .role(Role.USER)
                 .build();

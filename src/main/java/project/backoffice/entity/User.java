@@ -21,19 +21,23 @@ import java.util.List;
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="first_name")
+    @Column(name="first_name", length = 100)
     private String firstName;
-    @Column(name="last_name")
+    @Column(name="last_name", length = 100)
     private String lastName;
+    @Column(length = 100)
     private String email;
+    @Column(length = 100)
     private String password;
-    private String facebook_id;
+    @Column(name = "facebook_id", length = 100)
+    private String facebookId;
     private String phone;
+    @Column(length = 100)
     private String token;
 
-    @Column(name="library_timestamp")
+    @Column(name="library_timestamp", columnDefinition="DATETIME")
     private Date libraryTimestamp;
     private Date timestamp;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -46,7 +50,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Column(name = "is_active")
+    @Column(name = "is_active", columnDefinition = "boolean default true")
     private boolean isActive;
 
     @Override

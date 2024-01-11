@@ -1,4 +1,4 @@
-package project.backoffice.config;
+package project.backoffice.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

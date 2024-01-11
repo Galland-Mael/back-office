@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import project.backoffice.entity.Quality;
 import project.backoffice.entity.Role;
 
 import java.util.Date;
@@ -13,10 +14,11 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegisterRequest {
-    private String email;
-    private String password;
     private String firstName;
     private String lastName;
-    private String facebook_id;
+    private String email;
+    private String password;
     private String phone;
+    private Quality quality;
+    private String facebookId;
 }
