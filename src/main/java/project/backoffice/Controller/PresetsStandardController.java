@@ -22,7 +22,7 @@ public class PresetsStandardController {
 
 
     @GetMapping
-    public ResponseEntity<PresetsStandardDTO> getPresetsStandardByType(@RequestParam String type) throws JsonProcessingException {
+    public ResponseEntity<PresetsStandardDTO> getPresetsStandardByType(@RequestParam String type) throws Exception {
             return ResponseEntity.ok(presetsStandardService.getPresetStandardByType(type));
     }
 }

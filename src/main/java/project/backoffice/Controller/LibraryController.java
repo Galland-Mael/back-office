@@ -1,5 +1,6 @@
 package project.backoffice.Controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,20 +16,19 @@ import project.backoffice.Service.LibraryService;
 @RequestMapping("/library")
 public class LibraryController {
     private LibraryService libraryService;
-    private LibraryMapper LibraryMapper;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<LibraryDTO> getLibraryById(@PathVariable Long id) {
-        return ResponseEntity.ok(LibraryMapper.toDTO(libraryService.getLibraryById(id)));
+    @GetMapping("/user-id/{userId}")
+    public ResponseEntity<LibraryDTO> getLibraryByUserId(@PathVariable Long userId) throws JsonProcessingException {
+        return ResponseEntity.ok(libraryService.getLibraryByUserId(userId));
     }
 
     @PostMapping
     public ResponseEntity<LibraryDTO> createLibrary(@RequestBody LibraryRequest libraryRequest) {
-        return new ResponseEntity<>(LibraryMapper.toDTO(libraryService.createLibrary(libraryRequest)), HttpStatus.CREATED);
+        return new ResponseEntity<>(libraryService.createLibrary(libraryRequest), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<LibraryDTO> updateLibrary(@PathVariable Long id, @RequestBody LibraryRequest libraryRequest) {
-        return ResponseEntity.ok(LibraryMapper.toDTO(libraryService.updateLibrary(id, libraryRequest)));
+        return ResponseEntity.ok(libraryService.updateLibrary(id, libraryRequest));
     }
 }
