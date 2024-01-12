@@ -1,8 +1,8 @@
 CREATE TABLE shared
 (
     id      SERIAL PRIMARY KEY,
-    date    DATE DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    user_id INT                                   NOT NULL,
-    presets TEXT                                  NOT NULL,
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (id)
+    date    DATE DEFAULT CURRENT_TIMESTAMP,
+    user_id INT,
+    presets TEXT ,
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );

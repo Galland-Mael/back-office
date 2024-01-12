@@ -8,9 +8,11 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Date;
 import java.util.Collection;
+import lombok.Data;
+
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -43,8 +45,9 @@ public class User implements UserDetails {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="quality_id")
     private Quality quality;
-    @OneToMany(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Library> libraries;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "library_id", referencedColumnName = "id")
+    private Library library;
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Shared> shareds;
     @Enumerated(EnumType.STRING)
