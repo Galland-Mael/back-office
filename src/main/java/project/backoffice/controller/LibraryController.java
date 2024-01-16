@@ -1,14 +1,14 @@
-package project.backoffice.Controller;
+package project.backoffice.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import project.backoffice.DTO.LibraryDTO;
-import project.backoffice.Mapper.LibraryMapper;
-import project.backoffice.Request.LibraryRequest;
-import project.backoffice.Service.LibraryService;
+import project.backoffice.dto.LibraryDTO;
+import project.backoffice.mapper.LibraryMapper;
+import project.backoffice.request.LibraryRequest;
+import project.backoffice.service.LibraryService;
 
 
 @AllArgsConstructor

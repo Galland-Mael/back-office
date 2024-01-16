@@ -1,4 +1,4 @@
-package project.backoffice.Enum;
+package project.backoffice.enumeration;
 
 public enum JsonTypeEnum {
     PRESETS_STANDARD("presetsStandard"),

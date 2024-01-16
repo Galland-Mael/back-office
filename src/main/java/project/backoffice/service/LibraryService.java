@@ -1,21 +1,21 @@
-package project.backoffice.Service;
+package project.backoffice.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import project.backoffice.DTO.LibraryDTO;
-import project.backoffice.Entity.User;
-import project.backoffice.Enum.JsonTypeEnum;
-import project.backoffice.Exception.ApiException;
-import project.backoffice.Exception.MessageExceptionEnum;
-import project.backoffice.Helper.JsonHelper;
-import project.backoffice.Helper.StringHelper;
-import project.backoffice.Mapper.LibraryMapper;
-import project.backoffice.Repository.LibraryRepository;
-import project.backoffice.Entity.Library;
-import project.backoffice.Request.LibraryRequest;
+import project.backoffice.dto.LibraryDTO;
+import project.backoffice.entity.User;
+import project.backoffice.enumeration.JsonTypeEnum;
+import project.backoffice.exception.ApiException;
+import project.backoffice.exception.MessageExceptionEnum;
+import project.backoffice.helper.JsonHelper;
+import project.backoffice.helper.StringHelper;
+import project.backoffice.mapper.LibraryMapper;
+import project.backoffice.repository.LibraryRepository;
+import project.backoffice.entity.Library;
+import project.backoffice.request.LibraryRequest;
 
 
 @AllArgsConstructor

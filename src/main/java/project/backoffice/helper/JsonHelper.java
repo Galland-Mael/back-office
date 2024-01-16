@@ -1,13 +1,13 @@
-package project.backoffice.Helper;
+package project.backoffice.helper;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
-import project.backoffice.Enum.JsonTypeEnum;
-import project.backoffice.Exception.ApiException;
-import project.backoffice.Exception.MessageExceptionEnum;
+import project.backoffice.enumeration.JsonTypeEnum;
+import project.backoffice.exception.ApiException;
+import project.backoffice.exception.MessageExceptionEnum;
 
 
 public class JsonHelper {
