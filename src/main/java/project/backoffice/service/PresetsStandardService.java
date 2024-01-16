@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import project.backoffice.dto.PresetsStandardDTO;
 import project.backoffice.entity.PresetsStandard;
+import project.backoffice.enumeration.JsonTypeEnum;
 import project.backoffice.helper.JsonHelper;
 import project.backoffice.mapper.PresetsStandardMapper;
 import project.backoffice.repository.PresetsStandardRepository;
@@ -19,7 +20,7 @@ public class PresetsStandardService {
     public PresetsStandardDTO getPresetStandardByType(String type) throws JsonProcessingException {
         PresetsStandard presetsStandard = presetsStandardRepository.getPresetStandardByType(type);
         PresetsStandardDTO presetsStandardDTO = presetsStandardMapper.toDTO(presetsStandard);
-        presetsStandardDTO.setJson(JsonHelper.getJsonAsObject(presetsStandard.getJson()));
+        presetsStandardDTO.setJson(JsonHelper.getJsonStringAsObject(presetsStandard.getJson(), JsonTypeEnum.PRESETS_STANDARD));
         return presetsStandardDTO;
     }
 
