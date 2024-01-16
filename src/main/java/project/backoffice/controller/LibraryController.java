@@ -1,34 +1,34 @@
-package project.backoffice.controller;
+package project.backoffice.Controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import project.backoffice.dto.LibraryDTO;
-import project.backoffice.mapper.LibraryMapper;
-import project.backoffice.request.LibraryRequest;
-import project.backoffice.service.LibraryService;
+import project.backoffice.DTO.LibraryDTO;
+import project.backoffice.Mapper.LibraryMapper;
+import project.backoffice.Request.LibraryRequest;
+import project.backoffice.Service.LibraryService;
+
 
 @AllArgsConstructor
 @RestController
 @RequestMapping("/library")
 public class LibraryController {
-
     private LibraryService libraryService;
-    private LibraryMapper libraryMapper;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<LibraryDTO> getLibraryById(@PathVariable Long id) {
-        return ResponseEntity.ok(libraryMapper.toDTO(libraryService.getLibraryById(id)));
+    @GetMapping("/user-id/{userId}")
+    public ResponseEntity<LibraryDTO> getLibraryByUserId(@PathVariable Long userId) throws JsonProcessingException {
+        return ResponseEntity.ok(libraryService.getLibraryByUserId(userId));
     }
 
     @PostMapping
     public ResponseEntity<LibraryDTO> createLibrary(@RequestBody LibraryRequest libraryRequest) {
-        return new ResponseEntity<>(libraryMapper.toDTO(libraryService.createLibrary(libraryRequest)), HttpStatus.CREATED);
+        return new ResponseEntity<>(libraryService.createLibrary(libraryRequest), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<LibraryDTO> updateLibrary(@PathVariable Long id, @RequestBody LibraryRequest libraryRequest) {
-        return ResponseEntity.ok(libraryMapper.toDTO(libraryService.updateLibrary(id, libraryRequest)));
+        return ResponseEntity.ok(libraryService.updateLibrary(id, libraryRequest));
     }
 }
