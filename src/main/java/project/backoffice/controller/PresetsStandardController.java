@@ -1,6 +1,5 @@
-package project.backoffice.Controller;
+package project.backoffice.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
