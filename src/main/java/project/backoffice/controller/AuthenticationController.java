@@ -11,6 +11,7 @@ import project.backoffice.auth.RegisterRequest;
 import project.backoffice.exception.ApiException;
 import project.backoffice.exception.ApiExceptionHandler;
 import project.backoffice.exception.MessageExceptionEnum;
+import project.backoffice.repository.UserRepository;
 import project.backoffice.service.AuthenticationService;
 
 @RestController
@@ -23,7 +24,12 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request){
-        return ResponseEntity.ok(authenticationService.register(request));
+        try {
+            AuthenticationResponse response = authenticationService.register(request);
+            return ResponseEntity.ok(response);
+        } catch (ApiException e) {
+            return apiExceptionHandler.handleApiException(e);
+        }
     }
 
     @PostMapping("/login")
@@ -32,9 +38,7 @@ public class AuthenticationController {
             AuthenticationResponse response = authenticationService.authenticate(request);
             return ResponseEntity.ok(response);
         } catch (BadCredentialsException e) {
-            return apiExceptionHandler.handleApiException(new ApiException(HttpStatus.FORBIDDEN, MessageExceptionEnum.LOGIN_OR_PASSWORD_INCORRECT));
-        } catch (Exception e) {
-            return apiExceptionHandler.handleApiException(e);
+            throw new ApiException(HttpStatus.FORBIDDEN, MessageExceptionEnum.LOGIN_OR_PASSWORD_INCORRECT);
         }
     }
 }
