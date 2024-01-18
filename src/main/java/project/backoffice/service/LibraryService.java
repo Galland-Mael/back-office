@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import project.backoffice.dto.LibraryDTO;
 import project.backoffice.entity.User;
-import project.backoffice.enumeration.JsonTypeEnum;
 import project.backoffice.exception.ApiException;
 import project.backoffice.exception.MessageExceptionEnum;
 import project.backoffice.helper.JsonHelper;
