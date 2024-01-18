@@ -6,6 +6,6 @@ import lombok.Data;
 public class LibraryDTO
 {
     private Long id;
-    private UserDTO user;
-    private Object Json;
+    private Long userId;
+    private Object library;
 }

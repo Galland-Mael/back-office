@@ -15,7 +15,7 @@ import project.backoffice.helper.StringHelper;
 import project.backoffice.mapper.LibraryMapper;
 import project.backoffice.repository.LibraryRepository;
 import project.backoffice.entity.Library;
-import project.backoffice.request.LibraryRequest;
+import project.backoffice.repository.UserRepository;
 
 
 @AllArgsConstructor
@@ -25,6 +25,7 @@ public class LibraryService {
     private LibraryRepository libraryRepository;
     private UserService userService;
     private LibraryMapper LibraryMapper;
+    private UserRepository userRepository;
 
     public Library getLibraryById(Long id) {
         return libraryRepository.findById(id).orElseThrow(
@@ -33,32 +34,30 @@ public class LibraryService {
     }
 
 
-    public LibraryDTO createLibrary(LibraryRequest libraryRequest) {
-        if (libraryRepository.getLibrariesByUserId(libraryRequest.getUserId()) != null) {
-            throw new ApiException(HttpStatus.BAD_REQUEST,
-                    StringHelper.format(MessageExceptionEnum.LIBRARY_ALREADY_EXISTS_FOR_USER,  libraryRequest.getUserId()));
+    public LibraryDTO createLibrary(LibraryDTO libraryDTO) {
+        Library optionalLibrary = libraryRepository.getLibrariesByUserId(libraryDTO.getUserId());
+        if (optionalLibrary != null) {
+            return updateLibrary(optionalLibrary.getId(), libraryDTO);
         }
-        Library library = new Library();
-        library.setJson(libraryRequest.getJson());
-
-        User user = userService.getUserById(libraryRequest.getUserId());
-        user.setLibrary(library);
-
+        Library library = LibraryMapper.toEntity(libraryDTO);
+        User user = updateLibraryInUser(libraryDTO,library);
         library.setUser(user);
-
         return LibraryMapper.toDTO(libraryRepository.save(library));
     }
 
-
-    public LibraryDTO updateLibrary(Long id, LibraryRequest libraryRequest) {
-        Library library = getLibraryById(id);
-        library.setJson(libraryRequest.getJson());
-
-        User user = userService.getUserById(libraryRequest.getUserId());
+    public User updateLibraryInUser(LibraryDTO libraryDTO,Library library) {
+        User user = userService.getUserById(libraryDTO.getUserId());
         user.setLibrary(library);
+        userRepository.save(user);
+        return user;
+    }
 
+    public LibraryDTO updateLibrary(Long id, LibraryDTO libraryDTO) {
+        Library library = getLibraryById(id);
+        Object libraryObject = libraryDTO.getLibrary();
+        library.setJson(JsonHelper.JsonToString(libraryObject));
+        User user = updateLibraryInUser(libraryDTO,library);
         library.setUser(user);
-
         return LibraryMapper.toDTO(libraryRepository.save(library));
     }
 
@@ -68,8 +67,7 @@ public class LibraryService {
             throw new ApiException(HttpStatus.NOT_FOUND,
                     StringHelper.format(MessageExceptionEnum.LIBRARY_NOT_FOUND, userId));
         }
-        LibraryDTO libraryDTO = LibraryMapper.toDTO(library);
-        libraryDTO.setJson(JsonHelper.getJsonStringAsObject(library.getJson(), JsonTypeEnum.LIBRARY));
-        return libraryDTO;
+        return LibraryMapper.toDTO(library);
     }
+    
 }
