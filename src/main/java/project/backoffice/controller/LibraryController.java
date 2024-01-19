@@ -6,8 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.backoffice.dto.LibraryDTO;
-import project.backoffice.mapper.LibraryMapper;
-import project.backoffice.request.LibraryRequest;
 import project.backoffice.service.LibraryService;
 
 
@@ -23,12 +21,8 @@ public class LibraryController {
     }
 
     @PostMapping
-    public ResponseEntity<LibraryDTO> createLibrary(@RequestBody LibraryRequest libraryRequest) {
-        return new ResponseEntity<>(libraryService.createLibrary(libraryRequest), HttpStatus.CREATED);
+    public ResponseEntity<LibraryDTO> createLibrary(@RequestBody LibraryDTO LibraryDTO) throws JsonProcessingException {
+        return new ResponseEntity<>(libraryService.createLibrary(LibraryDTO), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<LibraryDTO> updateLibrary(@PathVariable Long id, @RequestBody LibraryRequest libraryRequest) {
-        return ResponseEntity.ok(libraryService.updateLibrary(id, libraryRequest));
-    }
 }

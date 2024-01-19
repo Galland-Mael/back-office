@@ -65,4 +65,15 @@ public class JsonHelper {
         String prettyJson = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
         return prettyJson;
     }
+
+    public static String JsonToString(Object library) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            String json = objectMapper.writeValueAsString(library);
+            return json;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
