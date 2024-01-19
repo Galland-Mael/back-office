@@ -17,8 +17,7 @@ import java.util.*;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/user")
-@CrossOrigin("*")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired

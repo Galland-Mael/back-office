@@ -8,7 +8,7 @@ import project.backoffice.dto.PresetsStandardDTO;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/preset_standard")
+@RequestMapping("/presets-standard")
 public class PresetsStandardController {
 
     private PresetsStandardService presetsStandardService;

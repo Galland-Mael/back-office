@@ -11,7 +11,7 @@ import project.backoffice.service.LibraryService;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/library")
+@RequestMapping("/libraries")
 public class LibraryController {
     private LibraryService libraryService;
 
@@ -21,7 +21,7 @@ public class LibraryController {
     }
 
     @PostMapping
-    public ResponseEntity<LibraryDTO> createLibrary(@RequestBody LibraryDTO LibraryDTO) throws JsonProcessingException {
+    public ResponseEntity<LibraryDTO> createLibrary(@RequestBody LibraryDTO LibraryDTO) {
         return new ResponseEntity<>(libraryService.createLibrary(LibraryDTO), HttpStatus.CREATED);
     }
 
