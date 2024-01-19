@@ -33,8 +33,6 @@ public class User implements UserDetails {
     private String email;
     @Column(length = 100)
     private String password;
-    @Column(name = "facebook_id", length = 100)
-    private String facebookId;
     private String phone;
     @Column(length = 100)
     private String token;

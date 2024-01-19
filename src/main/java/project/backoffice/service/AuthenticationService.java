@@ -32,7 +32,6 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .phone(request.getPhone())
-                .facebookId(request.getFacebookId())
                 .isActive(true)
                 .libraryTimestamp(Date.from(Instant.now()))
                 .token("")

@@ -20,5 +20,4 @@ public class RegisterRequest {
     private String password;
     private String phone;
     private Quality quality;
-    private String facebookId;
 }
