@@ -12,14 +12,6 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface UserMapperInterface {
-    UserMapperInterface INSTANCE = Mappers.getMapper(UserMapperInterface.class);
 
-    UserDTO mapToUserDTO(User user);
-    default Page<UserDTO> mapToUserDTOPage(Page<User> userPage) {
-        List<UserDTO> userDtoList = userPage.getContent().stream()
-                .map(this::mapToUserDTO)
-                .collect(Collectors.toList());
 
-        return new PageImpl<>(userDtoList, userPage.getPageable(), userPage.getTotalElements());
-    }
 }
