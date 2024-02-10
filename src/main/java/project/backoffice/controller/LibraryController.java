@@ -11,7 +11,7 @@ import project.backoffice.service.LibraryService;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/library")
+@RequestMapping("api/libraries")
 public class LibraryController {
     private LibraryService libraryService;
 
