@@ -17,7 +17,7 @@ import java.util.*;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/users")
+@RequestMapping("api/users")
 public class UserController {
 
     @Autowired
@@ -67,5 +67,16 @@ public class UserController {
                 throw new ApiException(HttpStatus.BAD_REQUEST, "The number of elements by page must be a positive integer");
             }
         }
+    }
+
+    @DeleteMapping("/{email}")
+    ResponseEntity<Void> deleteUser(@PathVariable String email) {
+        userService.deleteUser(email);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}")
+    ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(userService.updateUser(id, userDTO));
     }
 }
