@@ -10,14 +10,19 @@ import project.backoffice.helper.StringHelper;
 import project.backoffice.mapper.QualityMapper;
 import project.backoffice.repository.QualityRepository;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class QualityService {
     private final QualityRepository qualityRepository;
-    private final QualityMapper qualityMapper;
 
     public Quality getQualityById(Long id) {
         return qualityRepository.findById(id).orElseThrow(() ->  new ApiException(HttpStatus.NOT_FOUND,
                 StringHelper.format(MessageExceptionEnum.QUALITY_NOT_FOUND, id)));
+    }
+
+    public List<Quality> getAllQuality() {
+        return qualityRepository.findAll();
     }
 }

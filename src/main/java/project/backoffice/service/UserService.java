@@ -22,7 +22,6 @@ import project.backoffice.repository.UserRepository;
 public class UserService {
     private UserRepository userRepository;
     private UserMapper userMapper;
-    private QualityMapper qualityMapper;
     private QualityService qualityService;
 
     public User getUserById(Long id) {
