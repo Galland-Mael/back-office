@@ -6,6 +6,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class FirmwareVersionDTO {
+    private Long id;
     private String version;
 
 }
