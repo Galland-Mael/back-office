@@ -7,6 +7,5 @@ import project.backoffice.entity.Firmware;
 public class ProductDTO {
     private Long id;
     private String name;
-    private Long firmwareId;
-    private String firmwareVersion;
+    private FirmwareDTO lightFirmwareDto;
 }

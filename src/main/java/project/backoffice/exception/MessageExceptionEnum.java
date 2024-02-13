@@ -13,8 +13,8 @@ public enum MessageExceptionEnum {
     LIBRARY_ALREADY_EXISTS_FOR_USER("Library already exists for user id: %s"),
     JSON_PARSING_ERROR("Error parsing json"),
     QUALITY_NOT_FOUND("Quality not found for id: %s"),
-    JSON_TYPE_NOT_FOUND("Json type not found");
-
+    JSON_TYPE_NOT_FOUND("Json type not found"),
+    FIRMWARE_NOT_FOUND("Firmware not found for id: %s");
     private final String message;
 
     MessageExceptionEnum(String message) {

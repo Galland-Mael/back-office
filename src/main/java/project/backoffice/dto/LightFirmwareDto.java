@@ -2,13 +2,10 @@ package project.backoffice.dto;
 
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
-public class FirmwareDTO {
+public class LightFirmwareDto {
     private Long id;
-    private String date;
     private String version;
-    private String content;
-}
 
+    private String date;
+}
