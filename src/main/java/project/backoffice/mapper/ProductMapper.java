@@ -5,10 +5,10 @@ import org.mapstruct.Mapping;
 import project.backoffice.dto.ProductDTO;
 import project.backoffice.entity.Product;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",
+    uses = {FirmwareMapper.class}
+)
 public interface ProductMapper {
-    @Mapping(source = "firmware.id", target = "firmwareId")
-    @Mapping(source = "firmware.version", target = "firmwareVersion")
     ProductDTO toDTO(Product product);
 }
 
