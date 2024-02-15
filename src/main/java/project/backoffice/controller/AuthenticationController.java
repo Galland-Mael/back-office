@@ -15,7 +15,7 @@ import project.backoffice.repository.UserRepository;
 import project.backoffice.service.AuthenticationService;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("api/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
 

@@ -1,5 +1,6 @@
 package project.backoffice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,5 +15,6 @@ public class Quality
     private Long id;
     private String name;
     @OneToMany(mappedBy="quality", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<User> users;
 }
