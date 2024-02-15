@@ -26,10 +26,6 @@ public class ProductService {
         List<ProductDTO> list =  products.stream()
                 .map(product -> productMapper.toDTO(product))
                 .collect(Collectors.toList());
-        list.stream().map(productDTO -> {
-                productDTO.setLightFirmwareDto();
-            return productDTO;
-        });
         return list;
     }
 }

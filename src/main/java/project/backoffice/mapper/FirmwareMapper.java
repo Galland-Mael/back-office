@@ -19,6 +19,10 @@ public interface FirmwareMapper {
 
     @Mapping(source = "date", target = "date", qualifiedByName = "convertDateToString")
     FirmwareDTO toDTO(Firmware firmware);
+
+    @Mapping(source = "date", target = "date", qualifiedByName = "convertDateToString")
+    LightFirmwareDto toLightDTO(Firmware firmware);
+
     @Named("convertDateToString")
     static String convertDateToString(Date date) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
