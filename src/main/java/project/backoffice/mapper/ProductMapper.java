@@ -9,6 +9,7 @@ import project.backoffice.entity.Product;
     uses = {FirmwareMapper.class}
 )
 public interface ProductMapper {
+    @Mapping(source = "firmware", target = "lightFirmwareDto")
     ProductDTO toDTO(Product product);
 }
 
