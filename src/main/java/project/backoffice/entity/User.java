@@ -31,10 +31,8 @@ public class User implements UserDetails {
     private String lastName;
     @Column(length = 100)
     private String email;
-    @Column(length = 100)
     private String password;
     private String phone;
-    @Column(length = 100)
     private String token;
 
     @Column(name="library_timestamp", columnDefinition="DATETIME")
