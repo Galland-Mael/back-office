@@ -42,9 +42,11 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    // Documentation API
-    implementation 'io.springfox:springfox-swagger2:3.0.0'
-    implementation 'io.springfox:springfox-swagger-ui:2.0.2'
+    // SWAGGER
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.0.3'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.15'
+
+    // JSON
     implementation 'org.json:json:20210307'
 }
 
