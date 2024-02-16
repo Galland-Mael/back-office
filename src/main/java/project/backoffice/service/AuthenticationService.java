@@ -9,10 +9,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import project.backoffice.auth.AuthenticationRequest;
 import project.backoffice.auth.RegisterRequest;
+import project.backoffice.dto.UserAuthDTO;
+import project.backoffice.entity.Quality;
 import project.backoffice.exception.ApiException;
 import project.backoffice.exception.MessageExceptionEnum;
 import project.backoffice.entity.Role;
 import project.backoffice.entity.User;
+import project.backoffice.mapper.UserMapper;
+import project.backoffice.repository.QualityRepository;
 import project.backoffice.repository.UserRepository;
 
 import java.sql.Date;
@@ -26,10 +30,12 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final QualityRepository qualityRepository;
+    private final UserMapper userMapper;
 
-    public User register(RegisterRequest request) throws ApiException {
+    public UserAuthDTO register(RegisterRequest request) throws ApiException {
         if(userRepository.findByEmail(request.getEmail()).isPresent()){
-            throw new ApiException(HttpStatus.BAD_REQUEST, MessageExceptionEnum.USER_ALREADY_EXISTS);
+            throw new ApiException(HttpStatus.BAD_REQUEST, String.format(MessageExceptionEnum.USER_ALREADY_EXISTS.getMessage(), request.getEmail()));
         }
 
         checkRegisterFields(request);
@@ -51,21 +57,22 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(user);
         user.setToken(jwtToken);
         userRepository.save(user);
-        return user;
+        return userMapper.toAuthDTO(user);
     }
 
-    public User authenticate(AuthenticationRequest request) {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            request.getEmail(),
-                            request.getPassword()
-                    )
-            );
-            var user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-            var jwtToken = jwtService.generateToken(user);
-            user.setToken(jwtToken);
-            userRepository.save(user);
-            return user;
+    public UserAuthDTO authenticate(AuthenticationRequest request) {
+        checkLoginFields(request);
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail(),
+                        request.getPassword()
+                )
+        );
+        var user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        var jwtToken = jwtService.generateToken(user);
+        user.setToken(jwtToken);
+        userRepository.save(user);
+        return userMapper.toAuthDTO(user);
     }
 
     private void checkRegisterFields(RegisterRequest request) {
@@ -86,6 +93,19 @@ public class AuthenticationService {
         }
         if (request.getQuality() == null || request.getQuality().getId() == 0) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "Quality is required");
+        } else if (request.getQuality().getId() > 0) {
+            Quality quality = qualityRepository.findById(request.getQuality().getId()).orElseThrow(
+                    () -> new ApiException(HttpStatus.NOT_FOUND, "Quality not found for id: " + request.getQuality().getId()));
+            request.setQuality(quality);
+        }
+    }
+
+    private void checkLoginFields(AuthenticationRequest request) {
+        if (request.getEmail() == null || request.getEmail().isEmpty()) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "Email is required");
+        }
+        if (request.getPassword() == null || request.getPassword().isEmpty()) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "Password is required");
         }
     }
 }
