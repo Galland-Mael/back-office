@@ -1,5 +1,6 @@
 package project.backoffice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class Firmware {
     @Column(name="file_path")
     private String filePath;
     @OneToOne(mappedBy = "firmware")
+    @JsonIgnore
     private Product product;
 
 }

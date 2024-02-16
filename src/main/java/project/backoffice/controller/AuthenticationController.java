@@ -14,7 +14,7 @@ import project.backoffice.exception.MessageExceptionEnum;
 import project.backoffice.service.AuthenticationService;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("api/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
