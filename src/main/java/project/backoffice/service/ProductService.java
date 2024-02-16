@@ -9,7 +9,6 @@ import project.backoffice.mapper.FirmwareMapper;
 import project.backoffice.mapper.ProductMapper;
 import project.backoffice.repository.ProductRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +26,13 @@ public class ProductService {
                 .map(product -> productMapper.toDTO(product))
                 .collect(Collectors.toList());
         return list;
+    }
+
+    public ProductDTO createProduct(ProductDTO productDTO) {
+        Product product = productMapper.toEntity(productDTO);
+        productRepository.save(product);
+        productDTO.setId(product.getId());
+        return productDTO;
     }
 }
 
