@@ -8,12 +8,17 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import project.backoffice.dto.FirmwareCreationDTO;
 import project.backoffice.dto.FirmwareDTO;
 import project.backoffice.dto.FirmwareVersionDTO;
+import project.backoffice.dto.LightFirmwareDto;
 import project.backoffice.entity.Firmware;
 import project.backoffice.exception.ApiException;
 import project.backoffice.exception.MessageExceptionEnum;
 import project.backoffice.service.FirmwareService;
+
+import java.text.ParseException;
 
 @AllArgsConstructor
 @RestController
@@ -30,4 +35,15 @@ private FirmwareService firmwareService;
     public ResponseEntity<FirmwareDTO> getFirmwareById(@PathVariable Long id) {
         return ResponseEntity.ok(firmwareService.getFirmwareById(id));
     }
+
+    @PostMapping("/{productId}")
+    public ResponseEntity<LightFirmwareDto> createFirmware(@PathVariable Integer productId, @RequestParam("file") MultipartFile firmwareFile, @RequestParam("version") String version, @RequestParam("date") String date) throws ParseException {
+        FirmwareCreationDTO firmwareDTO = new FirmwareCreationDTO();
+        firmwareDTO.setFile(firmwareFile);
+        firmwareDTO.setVersion(version);
+        firmwareDTO.setDate(date);
+        firmwareDTO.setProductId(productId);
+        return ResponseEntity.ok(firmwareService.createFirmware(firmwareDTO));
+    }
+
 }

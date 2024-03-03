@@ -1,10 +1,8 @@
 package project.backoffice.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
+@Data
 public class FirmwareVersionDTO {
     private Long id;
     private String version;
