@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import project.backoffice.dto.FirmwareCreationDTO;
-import project.backoffice.dto.FirmwareDTO;
-import project.backoffice.dto.FirmwareVersionDTO;
-import project.backoffice.dto.LightFirmwareDto;
+import project.backoffice.dto.*;
 import project.backoffice.entity.Firmware;
 import project.backoffice.entity.Product;
 import project.backoffice.exception.ApiException;
@@ -60,7 +57,13 @@ public class FirmwareService {
         fileService.readFile(firmware.getFilePath());
         FirmwareDTO firmwareDTO = firmwareMapper.toDTO(firmware);
         firmwareDTO.setContent(fileService.readFile(firmware.getFilePath()));
-        firmwareDTO.setProductDTO(productMapper.toLightDTO(productRepository.findByFirmwareId(firmware.getId())));
+        LightProductDTO productDTO = productMapper.toLightDTO(productRepository.findByFirmwareId(firmware.getId()));
+        if(productDTO == null) {
+            throw new ApiException(
+                    HttpStatus.NOT_FOUND,
+                    StringHelper.format(MessageExceptionEnum.PRODUCT_NOT_FOUND, firmware.getId()));
+        }
+        firmwareDTO.setProductDTO(productDTO);
         return firmwareDTO;
     }
 

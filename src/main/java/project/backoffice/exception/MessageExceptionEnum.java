@@ -16,7 +16,8 @@ public enum MessageExceptionEnum {
     QUALITY_NOT_FOUND("Quality not found for id: %s"),
     JSON_TYPE_NOT_FOUND("Json type not found"),
     FIRMWARE_NOT_FOUND("Firmware not found for id: %s"),
-    PRODUCT_NOT_FOUND("Product not found for id: %s"),;
+    PRODUCT_NOT_FOUND("Product not found for id: %s"),
+    USER_NOT_ALLOWED("User not allowed to do modify this user");
     private final String message;
 
     MessageExceptionEnum(String message) {
