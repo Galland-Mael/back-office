@@ -15,6 +15,7 @@ import project.backoffice.exception.ApiException;
 import project.backoffice.exception.MessageExceptionEnum;
 import project.backoffice.helper.StringHelper;
 import project.backoffice.mapper.FirmwareMapper;
+import project.backoffice.mapper.ProductMapper;
 import project.backoffice.repository.FirmwareRepository;
 import project.backoffice.repository.ProductRepository;
 
@@ -39,6 +40,9 @@ public class FirmwareService {
     private FirmwareMapper firmwareMapper;
 
     @Autowired
+    private ProductMapper productMapper;
+
+    @Autowired
     private FileService fileService;
 
     @Value("${file.storage-dir}")
@@ -56,6 +60,7 @@ public class FirmwareService {
         fileService.readFile(firmware.getFilePath());
         FirmwareDTO firmwareDTO = firmwareMapper.toDTO(firmware);
         firmwareDTO.setContent(fileService.readFile(firmware.getFilePath()));
+        firmwareDTO.setProductDTO(productMapper.toLightDTO(productRepository.findByFirmwareId(firmware.getId())));
         return firmwareDTO;
     }
 

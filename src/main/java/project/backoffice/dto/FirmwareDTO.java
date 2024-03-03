@@ -10,5 +10,6 @@ public class FirmwareDTO {
     private String date;
     private String version;
     private String content;
+    private LightProductDTO productDTO;
 }
 
