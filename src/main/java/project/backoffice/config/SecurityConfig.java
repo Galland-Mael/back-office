@@ -3,6 +3,7 @@ package project.backoffice.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -24,6 +25,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
+                                .requestMatchers(HttpMethod.OPTIONS,"api/**").permitAll()
                         .requestMatchers("api/auth/**").permitAll()
                         .requestMatchers("/api/users").hasAnyAuthority("ADMIN")
 //                                .anyRequest().permitAll()

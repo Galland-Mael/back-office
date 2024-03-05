@@ -17,7 +17,7 @@ import java.util.*;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("api/users")
+@RequestMapping(value = "api/users")
 public class UserController {
 
     @Autowired

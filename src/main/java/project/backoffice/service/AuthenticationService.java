@@ -69,6 +69,12 @@ public class AuthenticationService {
                 )
         );
         var user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        if(user.getRole() != Role.ADMIN) {
+            throw new ApiException(HttpStatus.FORBIDDEN, MessageExceptionEnum.ACCESS_DENIED.getMessage());
+        }
+        if(!user.isActive()) {
+            throw new ApiException(HttpStatus.FORBIDDEN, MessageExceptionEnum.USER_DISABLED.getMessage());
+        }
         var jwtToken = jwtService.generateToken(user);
         user.setToken(jwtToken);
         userRepository.save(user);
