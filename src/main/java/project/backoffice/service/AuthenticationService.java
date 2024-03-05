@@ -60,7 +60,7 @@ public class AuthenticationService {
         return userMapper.toAuthDTO(user);
     }
 
-    public UserAuthDTO authenticate(AuthenticationRequest request) {
+    public UserAuthDTO authenticate(AuthenticationRequest request, boolean isAdmin) {
         checkLoginFields(request);
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -69,8 +69,10 @@ public class AuthenticationService {
                 )
         );
         var user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        if(user.getRole() != Role.ADMIN) {
-            throw new ApiException(HttpStatus.FORBIDDEN, MessageExceptionEnum.ACCESS_DENIED.getMessage());
+        if(isAdmin) {
+            if(user.getRole() != Role.ADMIN) {
+                throw new ApiException(HttpStatus.FORBIDDEN, MessageExceptionEnum.ACCESS_DENIED.getMessage());
+            }
         }
         if(!user.isActive()) {
             throw new ApiException(HttpStatus.FORBIDDEN, MessageExceptionEnum.USER_DISABLED.getMessage());

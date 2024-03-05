@@ -34,10 +34,20 @@ public class AuthenticationController {
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping("/loginAdmin")
+    public ResponseEntity<UserAuthDTO> authenticateAdmin(@RequestBody AuthenticationRequest request) {
+        try {
+            UserAuthDTO response = authenticationService.authenticate(request,true);
+            return ResponseEntity.ok(response);
+        } catch (BadCredentialsException e) {
+            throw new ApiException(HttpStatus.UNAUTHORIZED, MessageExceptionEnum.LOGIN_OR_PASSWORD_INCORRECT);
+        }
+    }
+
     @PostMapping("/login")
     public ResponseEntity<UserAuthDTO> authenticate(@RequestBody AuthenticationRequest request) {
         try {
-            UserAuthDTO response = authenticationService.authenticate(request);
+            UserAuthDTO response = authenticationService.authenticate(request,false);
             return ResponseEntity.ok(response);
         } catch (BadCredentialsException e) {
             throw new ApiException(HttpStatus.UNAUTHORIZED, MessageExceptionEnum.LOGIN_OR_PASSWORD_INCORRECT);
