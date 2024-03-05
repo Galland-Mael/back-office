@@ -1,6 +1,7 @@
 package project.backoffice.service;
 
 import com.mailjet.client.transactional.SendContact;
+import com.mailjet.client.transactional.TransactionalEmail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -44,15 +45,18 @@ public class ResetPasswordService {
 
     private MailDTO createMail(User user) {
         MailDTO mail = new MailDTO();
-        String resetPasswordUrl = BASE_URL + "/reset-password?token=" + user.getToken();
-        mail.getMessageBuilder().subject("Rosco > Password reset");
-        mail.getMessageBuilder()
-                .htmlPart("<h3>Reset your password</h3>" +
-                        "<p>Click on the link below to reset your password:</p>" +
-                        "<p><a href='" + resetPasswordUrl + "'>Reset Password</a>" +
-                        "<p>If you can't click on the link, please copy and paste the following URL in your browser: " + resetPasswordUrl + "</p>" +
-                        "</p><p>Regards,<br>Rosco Team</p>");
 
+
+        String resetPasswordUrl = BASE_URL + "/reset-password?token=" + user.getToken();
+        TransactionalEmail.TransactionalEmailBuilder mailBuilder =
+                TransactionalEmail.builder()
+                        .subject("Rosco > Password reset")
+                        .htmlPart("<h3>Reset your password</h3>" +
+                            "<p>Click on the link below to reset your password:</p>" +
+                            "<p><a href='" + resetPasswordUrl + "'>Reset Password</a>" +
+                            "<p>If you can't click on the link, please copy and paste the following URL in your browser: " + resetPasswordUrl + "</p>" +
+                            "</p><p>Regards,<br>Rosco Team</p>");
+        mail.setMessageBuilder(mailBuilder);
         mail.setRecipients(List.of(new SendContact(user.getEmail(), user.getFirstName() + " " + user.getLastName())));
         return mail;
     }
