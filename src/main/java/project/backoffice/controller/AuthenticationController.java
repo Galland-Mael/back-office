@@ -48,22 +48,10 @@ public class AuthenticationController {
     public ResponseEntity<?> resetPassword(@RequestBody ResetPasswordDTO resetPasswordDTO) {
         if (resetPasswordDTO.getPassword() == null) {
             resetPasswordService.askResetPassword(resetPasswordDTO);
-            return ResponseEntity.ok().build();
         } else {
-
-            if(resetPasswordDTO.getToken() == null) {
-                throw new ApiException(HttpStatus.UNAUTHORIZED, MessageExceptionEnum.RESET_PASSWORD_TOKEN_INVALID);
-            }
-
-            User user = userRepository.findByEmail(resetPasswordDTO.getEmail())
-                    .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, MessageExceptionEnum.USER_NOT_FOUND));
-
-            if(StringUtils.equals(user.getToken(), resetPasswordDTO.getToken())) {
-                resetPasswordService.resetPassword(resetPasswordDTO);
-                return ResponseEntity.ok().build();
-            } else {
-                throw new ApiException(HttpStatus.UNAUTHORIZED, MessageExceptionEnum.RESET_PASSWORD_TOKEN_INVALID);
-            }
+            resetPasswordService.resetPassword(resetPasswordDTO);
         }
+
+        return ResponseEntity.ok().build();
     }
 }

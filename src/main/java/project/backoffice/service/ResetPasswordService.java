@@ -29,7 +29,10 @@ public class ResetPasswordService {
     private final PasswordEncoder passwordEncoder;
 
     public void resetPassword(ResetPasswordDTO resetPasswordDTO) {
-        User user = userRepository.findByEmail(resetPasswordDTO.getEmail())
+        if (resetPasswordDTO.getToken() == null) {
+            throw new ApiException(HttpStatus.UNAUTHORIZED, MessageExceptionEnum.RESET_PASSWORD_TOKEN_INVALID);
+        }
+        User user = userRepository.findByToken(resetPasswordDTO.getToken())
                 .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, MessageExceptionEnum.USER_NOT_FOUND));
         user.setPassword(passwordEncoder.encode(resetPasswordDTO.getPassword()));
         userRepository.save(user);
