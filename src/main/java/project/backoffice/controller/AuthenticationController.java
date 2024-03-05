@@ -40,7 +40,7 @@ public class AuthenticationController {
             UserAuthDTO response = authenticationService.authenticate(request);
             return ResponseEntity.ok(response);
         } catch (BadCredentialsException e) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, MessageExceptionEnum.LOGIN_OR_PASSWORD_INCORRECT);
+            throw new ApiException(HttpStatus.UNAUTHORIZED, MessageExceptionEnum.LOGIN_OR_PASSWORD_INCORRECT);
         }
     }
 
@@ -52,7 +52,7 @@ public class AuthenticationController {
         } else {
 
             if(resetPasswordDTO.getToken() == null) {
-                throw new ApiException(HttpStatus.BAD_REQUEST, MessageExceptionEnum.RESET_PASSWORD_TOKEN_INVALID);
+                throw new ApiException(HttpStatus.UNAUTHORIZED, MessageExceptionEnum.RESET_PASSWORD_TOKEN_INVALID);
             }
 
             User user = userRepository.findByEmail(resetPasswordDTO.getEmail())
@@ -62,7 +62,7 @@ public class AuthenticationController {
                 resetPasswordService.resetPassword(resetPasswordDTO);
                 return ResponseEntity.ok().build();
             } else {
-                throw new ApiException(HttpStatus.FORBIDDEN, MessageExceptionEnum.RESET_PASSWORD_TOKEN_INVALID);
+                throw new ApiException(HttpStatus.UNAUTHORIZED, MessageExceptionEnum.RESET_PASSWORD_TOKEN_INVALID);
             }
         }
     }

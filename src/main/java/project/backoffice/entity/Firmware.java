@@ -14,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Firmware {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date date;
     private String version;

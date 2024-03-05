@@ -101,11 +101,8 @@ public class AuthenticationService {
     }
 
     private void checkLoginFields(AuthenticationRequest request) {
-        if (request.getEmail() == null || request.getEmail().isEmpty()) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, "Email is required");
-        }
-        if (request.getPassword() == null || request.getPassword().isEmpty()) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, "Password is required");
+        if ((request.getEmail() == null || request.getEmail().isEmpty()) || (request.getPassword() == null || request.getPassword().isEmpty())) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "Login or password incorrect");
         }
     }
 }

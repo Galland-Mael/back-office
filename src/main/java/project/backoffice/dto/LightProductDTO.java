@@ -3,8 +3,7 @@ package project.backoffice.dto;
 import lombok.Data;
 
 @Data
-public class FirmwareVersionDTO {
+public class LightProductDTO {
     private Long id;
-    private String version;
-
+    private String name;
 }

@@ -5,9 +5,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import project.backoffice.dto.UserDTO;
-import project.backoffice.entity.Quality;
 import project.backoffice.entity.User;
 import project.backoffice.exception.ApiException;
 import project.backoffice.exception.MessageExceptionEnum;
@@ -49,6 +50,14 @@ public class UserService {
         User user = userRepository.findById(id).orElseThrow(
                 ()-> new ApiException(HttpStatus.NOT_FOUND,
                         StringHelper.format(MessageExceptionEnum.USER_NOT_FOUND, id)));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ADMIN"));
+        boolean isUser = authentication.getName().equals(user.getEmail());
+        if (authentication != null && (!isAdmin && !isUser)) {
+            throw new ApiException(HttpStatus.FORBIDDEN, MessageExceptionEnum.USER_NOT_ALLOWED);
+        }
+
         updateUserFromDTO(user, userDTO);
         return userMapper.toDTO(userRepository.save(user));
     }
