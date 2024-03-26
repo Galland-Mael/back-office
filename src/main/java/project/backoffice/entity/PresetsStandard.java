@@ -1,9 +1,6 @@
 package project.backoffice.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,9 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "presets_standard")
+@SequenceGenerator(name = "presets_standard_sequence", sequenceName = "presets_standard_sequence", allocationSize = 1)
 public class PresetsStandard {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "presets_standard_sequence")
     private Long id;
     private String type;
     private String json;

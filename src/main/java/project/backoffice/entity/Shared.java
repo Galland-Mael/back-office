@@ -7,10 +7,10 @@ import lombok.Data;
 import java.util.Date;
 
 @Entity
-@Data
+@SequenceGenerator(name = "shared_sequence", sequenceName = "shared_sequence", allocationSize = 1)
 public class Shared {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "shared_sequence")
     private Long id;
     private Date date;
     @ManyToOne(fetch = FetchType.LAZY)
