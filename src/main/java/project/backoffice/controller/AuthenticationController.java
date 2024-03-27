@@ -1,5 +1,7 @@
 package project.backoffice.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -35,6 +37,11 @@ public class AuthenticationController {
     }
 
     @PostMapping("/loginAdmin")
+    @Operation(summary = "Authenticate admin",
+    responses = {
+        @ApiResponse(responseCode = "200", description = "Admin authenticated"),
+        @ApiResponse(responseCode = "401", description = "Unauthorized")
+    })
     public ResponseEntity<UserAuthDTO> authenticateAdmin(@RequestBody AuthenticationRequest request) {
         try {
             UserAuthDTO response = authenticationService.authenticate(request,true);
