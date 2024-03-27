@@ -12,9 +12,10 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@SequenceGenerator(name = "firmware_sequence", sequenceName = "firmware_sequence", allocationSize = 1)
 public class Firmware {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "firmware_sequence")
     private Long id;
     private Date date;
     private String version;

@@ -5,9 +5,10 @@ import lombok.Data;
 
 @Entity
 @Data
+@SequenceGenerator(name = "product_sequence", sequenceName = "product_sequence", allocationSize = 1)
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_sequence")
     private Long id;
     private String name;
     @OneToOne(cascade = CascadeType.ALL)

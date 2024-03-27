@@ -21,9 +21,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
+@SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
     private Long id;
     @Column(name="first_name", length = 100)
     private String firstName;
